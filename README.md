@@ -40,3 +40,9 @@ in the dev terminal:
 rm -r env
 ./scripts/install-deps.sh
 ```
+
+# Starting the environment
+
+```
+source env/bin/activate 
+```
