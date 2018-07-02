@@ -20,6 +20,7 @@ import logging
 import aiy.assistant.grpc
 import aiy.audio
 import aiy.voicehat
+import google_sheets
 
 logging.basicConfig(
     level=logging.INFO,
@@ -27,11 +28,32 @@ logging.basicConfig(
 )
 
 
+def process_text(editor, text):
+    if text == 'goodbye':
+        status_ui.status('stopping')
+        print('Bye!')
+        print('You said "', text, '"')
+
+    if text == 'add feeding':
+        editor.add_start_feeding()
+
+    if text == 'stop feeding':
+        editor.add_end_feeding()
+
+    if text == 'add poop':
+        editor.add_pooping()
+
+    if text == 'add pee':
+        editor.add_peeing()
+
+
 def main():
     status_ui = aiy.voicehat.get_status_ui()
     status_ui.status('starting')
     assistant = aiy.assistant.grpc.get_assistant()
     button = aiy.voicehat.get_button()
+
+    editor = google_sheets.SpreadSheetEditor()
     with aiy.audio.get_recorder():
         while True:
             status_ui.status('ready')
@@ -41,13 +63,9 @@ def main():
             print('Listening...')
             text, audio = assistant.recognize()
             if text:
-                if text == 'goodbye':
-                    status_ui.status('stopping')
-                    print('Bye!')
-                    break
-                print('You said "', text, '"')
-            if audio:
-                aiy.audio.play_audio(audio, assistant.get_volume())
+                process_text(editor, text)
+            # if audio:
+            #    aiy.audio.play_audio(audio, assistant.get_volume())
 
 
 if __name__ == '__main__':
