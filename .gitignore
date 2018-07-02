@@ -4,4 +4,4 @@ __pycache__
 .DS_Store
 src/build
 .vscode/
-secrets/
+src/examples/voice/secrets/
