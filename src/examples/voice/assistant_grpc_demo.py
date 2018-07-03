@@ -36,47 +36,49 @@ def process_text(editor, text):
         return True
 
     if text == 'options':
-        aiy.audio.say("Options are:")
-        aiy.audio.say("add feeding")
-        aiy.audio.say("stop feeding")
-        aiy.audio.say("dirty diaper")
-        aiy.audio.say("wet diaper")
-        aiy.audio.say("add sleeping")
-        aiy.audio.say("stop sleeping")
+        say("Options are:")
+        say("add feeding")
+        say("stop feeding")
+        say("dirty diaper")
+        say("wet diaper")
+        say("add sleeping")
+        say("stop sleeping")
         return True
 
     if text == 'add feeding':
-        aiy.audio.say("Recorded add feeding.")
+        say("Recorded add feeding.")
         editor.add_start_feeding()
         return True
 
     if text == 'stop feeding':
-        aiy.audio.say("Recorded stop feeding.")
+        say("Recorded stop feeding.")
         editor.add_end_feeding()
         return True
 
     if text == 'dirty diaper':
-        aiy.audio.say("Recorded dirty diaper.")
+        say("Recorded dirty diaper.")
         editor.add_pooping()
         return True
 
     if text == 'wet diaper' or text == 'what diaper':
-        aiy.audio.say("Recorded wet diaper.")
+        say("Recorded wet diaper.")
         editor.add_peeing()
         return True
 
     if text == 'add sleeping':
-        aiy.audio.say("Recorded add sleeping.")
+        say("Recorded add sleeping.")
         editor.add_start_sleeping()
         return True
 
     if text == 'stop sleeping':
-        aiy.audio.say("Recorded stop sleeping.")
+        say("Recorded stop sleeping.")
         editor.add_end_sleeping()
         return True
 
     return False
 
+def say(text):
+    aiy.audio.say(text, volume = 4, pitch = 130)
 
 def main():
     status_ui = aiy.voicehat.get_status_ui()
@@ -88,16 +90,16 @@ def main():
     editor = google_sheets.SpreadSheetEditor()
     with aiy.audio.get_recorder():
         while True:
-            status_ui.status('ready')
+            #status_ui.status('ready')
             print('Press the button and speak')
             button.wait_for_press()
             print('Listening...')
             text, audio = assistant.recognize()
             if text:
-                aiy.audio.say(text)
+                say(text)
                 status = process_text(editor, text)
                 if not status:
-                    aiy.audio.say("Did not understand. Try again.")
+                    say("Did not understand. Try again.")
 
 
 if __name__ == '__main__':
