@@ -33,18 +33,33 @@ def process_text(editor, text):
     if text == 'goodbye':
         status_ui.status('stopping')
         print('Bye!')
+        return True
+
+    if text == 'options':
+        aiy.audio.say("Options are:")
+        aiy.audio.say("add feeding")
+        aiy.audio.say("stop feeding")
+        aiy.audio.say("dirty diaper")
+        aiy.audio.say("wet diaper")
+        return True
 
     if text == 'add feeding':
         editor.add_start_feeding()
+        return True
 
     if text == 'stop feeding':
         editor.add_end_feeding()
+        return True
 
     if text == 'dirty diaper':
         editor.add_pooping()
+        return True
 
     if text == 'wet diaper':
         editor.add_peeing()
+        return True
+
+    return False
 
 
 def main():
@@ -64,7 +79,9 @@ def main():
             text, audio = assistant.recognize()
             if text:
                 aiy.audio.say(text)
-                process_text(editor, text)
+                status = process_text(editor, text)
+                if not status:
+                    aiy.audio.say("Did not understand. Try again.")
 
 
 if __name__ == '__main__':
