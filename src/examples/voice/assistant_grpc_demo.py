@@ -29,10 +29,10 @@ logging.basicConfig(
 
 
 def process_text(editor, text):
+    print('You said "', text, '"')
     if text == 'goodbye':
         status_ui.status('stopping')
         print('Bye!')
-        print('You said "', text, '"')
 
     if text == 'add feeding':
         editor.add_start_feeding()
@@ -40,10 +40,10 @@ def process_text(editor, text):
     if text == 'stop feeding':
         editor.add_end_feeding()
 
-    if text == 'add poop':
+    if text == 'dirty diaper':
         editor.add_pooping()
 
-    if text == 'add pee':
+    if text == 'wet diaper':
         editor.add_peeing()
 
 
@@ -63,9 +63,8 @@ def main():
             print('Listening...')
             text, audio = assistant.recognize()
             if text:
+                aiy.audio.say(text)
                 process_text(editor, text)
-            # if audio:
-            #    aiy.audio.play_audio(audio, assistant.get_volume())
 
 
 if __name__ == '__main__':
