@@ -44,18 +44,22 @@ def process_text(editor, text):
         return True
 
     if text == 'add feeding':
+        aiy.audio.say("Recorded add feeding.")
         editor.add_start_feeding()
         return True
 
     if text == 'stop feeding':
+        aiy.audio.say("Recorded stop feeding.")
         editor.add_end_feeding()
         return True
 
     if text == 'dirty diaper':
+        aiy.audio.say("Recorded dirty diaper.")
         editor.add_pooping()
         return True
 
-    if text == 'wet diaper':
+    if text == 'wet diaper' or text == 'what diaper':
+        aiy.audio.say("Recorded wet diaper.")
         editor.add_peeing()
         return True
 
