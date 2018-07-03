@@ -83,7 +83,8 @@ def main():
     status_ui.status('starting')
     assistant = aiy.assistant.grpc.get_assistant()
     button = aiy.voicehat.get_button()
-
+    led = aiy.voicehat.get_led()
+    led.set_state(aiy.voicehat.LED.OFF)
     editor = google_sheets.SpreadSheetEditor()
     with aiy.audio.get_recorder():
         while True:
