@@ -41,6 +41,8 @@ def process_text(editor, text):
         aiy.audio.say("stop feeding")
         aiy.audio.say("dirty diaper")
         aiy.audio.say("wet diaper")
+        aiy.audio.say("add sleeping")
+        aiy.audio.say("stop sleeping")
         return True
 
     if text == 'add feeding':
@@ -63,6 +65,16 @@ def process_text(editor, text):
         editor.add_peeing()
         return True
 
+    if text == 'add sleeping':
+        aiy.audio.say("Recorded add sleeping.")
+        editor.add_start_sleeping()
+        return True
+
+    if text == 'stop sleeping':
+        aiy.audio.say("Recorded stop sleeping.")
+        editor.add_end_sleeping()
+        return True
+
     return False
 
 
@@ -78,7 +90,6 @@ def main():
             status_ui.status('ready')
             print('Press the button and speak')
             button.wait_for_press()
-            status_ui.status('listening')
             print('Listening...')
             text, audio = assistant.recognize()
             if text:

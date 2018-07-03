@@ -24,6 +24,8 @@ class ActivityEnum(Enum):
     FEED_END = 2
     POOP = 3
     PEE = 4
+    SLEEP_START = 5
+    SLEEP_END = 6
 
 
 class SpreadSheetEditor(object):
@@ -87,6 +89,12 @@ class SpreadSheetEditor(object):
     def add_peeing(self):
         """Starts peeing session on the new row."""
         self._update_activity(ActivityEnum.PEE)
+
+    def add_start_sleeping(self):
+        self._update_activity(ActivityEnum.SLEEP_START)
+
+    def add_end_sleeping(self):
+        self._update_activity(ActivityEnum.SLEEP_END)
 
 
 def main(argv):
